@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <title>Личный Кабинет</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mx-auto mb-4">
+            <div class="section-title text-center ">
+                <h3 class="top-c-sep">Личный кабинет</h3>
+                <p>В данном разделе представлен личный кабинет и список выбранных книг.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row gutters-sm">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body tab-content">
+                    <div class="tab-pane active" id="profile">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" th:value="*{user.username}">
+                            </div>
+                            <div class="form-group" sec:authorize="hasAuthority('ROLE_USER')">
+                                <label for="fullName">Полное имя</label>
+                                <input type="text" class="form-control" id="fullName" aria-describedby="fullNameHelp" placeholder="Enter your fullname" th:value="*{user.fullName}">
+                            </div>
+                            <div class="form-group" sec:authorize="hasAuthority('ROLE_USER')">
+                                <label for="number">Номер телефона</label>
+                                <input type="text" class="form-control" id="number" aria-describedby="fullNameHelp" placeholder="Enter your phone number" th:value="*{user.phoneNumber}">
+                            </div>
+                            <div class="form-group" sec:authorize="hasAuthority('ROLE_USER')">
+                                <label for="numberT">Номер читательского билета</label>
+                                <input type="text" class="form-control" id="numberT" th:value="*{user.ticketNumber}" readonly="true">
+                            </div>
+                            <div class="form-group" sec:authorize="hasAuthority('ROLE_USER')">
+                                <label for="debt">Долг читателя</label>
+                                <input type="text" class="form-control" id="debt" th:value="*{debt}" readonly="true">
+                            </div>
+                            <button type="button" class="btn btn-primary">Обновить профиль</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 d-none d-md-block">
+            <table class="table">
+                <thead class="table-secondary">
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Автор</th>
+                    <th scope="col">Жанр</th>
+                    <th scope="col">Дата возврата</th>
+                </tr>
+                </thead>
+                <tr th:each ="book:${books}" >
+                    <td th:utext="${book.bookName}"></td>
+                    <td th:utext="${book.authorName}"></td>
+                    <td th:utext="${book.genreName}"></td>
+                </tr>
+                    <tr th:each ="time:${times}">
+                        <td th:utext="${time.getReturnDate}"></td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+<style>
+    body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background:#f5f5f5;
+}
+.main-body {
+    padding: 15px;
+}
+
+.nav-link {
+    color: #4a5568;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.gutters-sm {
+    margin-right: -100px;
+    margin-left: -100px;
+}
+
+.gutters-sm>.col, .gutters-sm>[class*=col-] {
+    padding-right: 8px;
+    padding-left: 8px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+</style>

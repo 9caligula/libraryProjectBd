@@ -1,0 +1,440 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Person List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+</head>
+<body>
+    <section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto mb-4">
+                <div class="section-title text-center ">
+                    <h3 class="top-c-sep">Список авторов</h3>
+                    <p>В данном разделе представлены все авторы, которые есть в библиотеке.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <tr th:each ="author:${authors}">
+            <div class="col-sm-6 col-lg-4 m-15px-tb">
+                <div class="media box-shadow-only-hover hover-top border-all-1 border-color-gray p-15px">
+                    <a class="overlay-link" th:href="@{/author/{linkTitle}(linkTitle=${author.fullName})}"></a>
+                    <div class="job-box d-md-flex align-items-center justify-content-between mb-20">
+                        <div class="job-left my-0 d-md-flex align-items-center flex-wrap">
+                            <div class="img-holder mr-md-0 mb-md-0 mb-0 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                <td th:utext="${author.getReplaceName}"></td>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-20px-l media-body">
+                        <h5 class="text-center text-md-left" th:utext="${author.fullName}"></h5>
+                        <td th:utext="${author.dateOfBirth}">...</td>
+                    </div>
+                </div>
+            </div>
+            </tr>
+        </div>
+    </div>
+    </section>
+</body>
+</html>
+
+
+
+
+<style>
+body{
+    background:#f5f5f5;
+    margin-top:20px;}
+
+/* ===== Career ===== */
+.career-form {
+  background-color: #ec1b5a;
+  border-radius: 5px;
+  padding: 0 16px;
+}
+
+.career-form .form-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 0;
+  padding: 12px 15px;
+  color: #fff;
+}
+
+.career-form .form-control::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff;
+}
+
+.career-form .form-control::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
+}
+
+.career-form .form-control:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff;
+}
+
+.career-form .form-control:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff;
+}
+
+.career-form .custom-select {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 0;
+  padding: 12px 15px;
+  color: #fff;
+  width: 100%;
+  border-radius: 5px;
+  text-align: left;
+  height: auto;
+  background-image: none;
+}
+
+.career-form .custom-select:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.career-form .select-container {
+  position: relative;
+}
+
+.career-form .select-container:before {
+  position: absolute;
+  right: 15px;
+  top: calc(50% - 14px);
+  font-size: 18px;
+  color: #ffffff;
+  content: '\F2F9';
+  font-family: "Material-Design-Iconic-Font";
+}
+
+.filter-result .job-box {
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+          box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  border-radius: 10px;
+  padding: 10px 35px;
+}
+
+ul {
+  list-style: none;
+}
+
+.list-disk li {
+  list-style: none;
+  margin-bottom: 12px;
+}
+
+.list-disk li:last-child {
+  margin-bottom: 0;
+}
+
+.job-box .img-holder {
+  height: 65px;
+  width: 65px;
+  background-color: #ec1b5a;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(236, 47, 90, 0.9)), to(#ec1b5a));
+  background-image: linear-gradient(to right, rgba(236, 47, 90, 0.9) 0%, #ec1b5a 100%);
+  font-family: "Open Sans", sans-serif;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 65px;
+}
+
+.career-title {
+  background-color: #ec1b5a;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(236, 47, 90, 0.9)), to(#279636));
+  background-image: linear-gradient(to right, rgba(236, 47, 90, 0.9) 0%, #279636 100%);
+}
+
+.job-overview {
+  -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+          box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+  border-radius: 10px;
+}
+
+@media (min-width: 992px) {
+  .job-overview {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 70px;
+  }
+}
+
+.job-overview .job-detail ul {
+  margin-bottom: 28px;
+}
+
+.job-overview .job-detail ul li {
+  opacity: 0.75;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.job-overview .job-detail ul li i {
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+}
+
+.job-overview .overview-bottom,
+.job-overview .overview-top {
+  padding: 35px;
+}
+
+.job-content ul li {
+  font-weight: 600;
+  opacity: 0.75;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+}
+
+@media (min-width: 768px) {
+  .job-content ul li {
+    border-bottom: 0;
+    padding: 0;
+  }
+}
+
+.job-content ul li i {
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+
+
+body{margin-top:20px;}
+.p-15px {
+    padding: 15px;
+}
+.border-color-gray {
+    border-color: #f2f3fa;
+}
+.border-all-1 {
+    border: 1px solid;
+}
+.hover-top {
+    position: relative;
+    top: 0;
+}
+.m-15px-tb {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.overlay-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 0;
+}
+.border-radius-50 {
+    border-radius: 50%;
+}
+.icon-50 {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 21px;
+}
+.white-color {
+    color: #ffffff;
+}
+.theme-bg {
+    background-color: #ec1b5a;
+}
+.icon-50 i.number {
+    font-style: normal;
+}
+.icon-50 i {
+    line-height: 50px;
+}
+.p-20px-l {
+    padding-left: 20px;
+}
+.p-10px-lr {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.p-0px-tb {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.border-radius-15 {
+    border-radius: 15px;
+}
+.white-color {
+    color: #ffffff;
+}
+.theme2nd-bg {
+    background-color: #53d267;
+}
+.m-0px {
+    margin: 0px;
+}
+.font-small {
+    font-size: .75rem;
+    line-height: 1rem;
+}
+
+.green-bg-alt {
+  background-color: rgba(17, 226, 121, 0.1);
+}
+
+.green-bg {
+  background-color: #11e279;
+}
+
+.green-after:after {
+  background-color: #11e279;
+}
+
+.green-before:before {
+  background-color: #11e279;
+}
+
+.green-color-alt {
+  color: rgba(17, 226, 121, 0.65);
+}
+
+.green-color {
+  color: #11e279;
+}
+
+.blue-bg-alt {
+  background-color: rgba(21, 178, 236, 0.1);
+}
+
+.blue-bg {
+  background-color: #15b2ec;
+}
+
+.blue-after:after {
+  background-color: #15b2ec;
+}
+
+.blue-before:before {
+  background-color: #15b2ec;
+}
+
+.blue-color-alt {
+  color: rgba(21, 178, 236, 0.65);
+}
+
+.blue-color {
+  color: #15b2ec;
+}
+
+.pink-bg-alt {
+  background-color: rgba(241, 38, 153, 0.1);
+}
+
+.pink-bg {
+  background-color: #f12699;
+}
+
+.pink-after:after {
+  background-color: #f12699;
+}
+
+.pink-before:before {
+  background-color: #f12699;
+}
+
+.pink-color-alt {
+  color: rgba(241, 38, 153, 0.65);
+}
+
+.pink-color {
+  color: #f12699;
+}
+
+.body-bg-alt {
+  background-color: rgba(113, 128, 150, 0.1);
+}
+
+.body-bg {
+  background-color: #718096;
+}
+
+.body-after:after {
+  background-color: #718096;
+}
+
+.body-before:before {
+  background-color: #718096;
+}
+
+.body-color-alt {
+  color: rgba(113, 128, 150, 0.65);
+}
+
+.body-color {
+  color: #718096;
+}
+
+.white-color-light {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.theme-g-bg {
+  background: linear-gradient(to right, #0050d8, #002a72);
+}
+
+.dark-g-bg {
+  background: linear-gradient(50deg, #273444 0, #272b44 100%);
+}
+.yellow-bg {
+    background-color: #ffbe3d;
+}
+.border-radius-50 {
+    border-radius: 50%;
+}
+.icon-50 {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 21px;
+}
+
+.box-shadow-only-hover:hover {
+  box-shadow: 0 1.5rem 4rem rgba(22, 28, 45, 0.1);
+}
+.border-color-gray {
+    border-color: #f2f3fa !important;
+}
+.border-all-1 {
+    border: 1px solid;
+}
+</style>
